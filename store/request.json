@@ -28,5 +28,11 @@
         "hours": "5-7",
         "client_name": "Кеша",
         "client_tel": "7894"
+    },
+    "6": {
+        "goal": "для путешествий",
+        "hours": "3-5",
+        "client_name": "Кеша",
+        "client_tel": "7894"
     }
 }

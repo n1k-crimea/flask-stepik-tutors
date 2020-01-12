@@ -6,7 +6,7 @@ import json
 app = Flask(__name__)
 
 def get_data_tutors():
-    with open('data.json', 'r', encoding='utf-8') as data_tutors:
+    with open('store/data.json', 'r', encoding='utf-8') as data_tutors:
         tmp_dict = json.loads(data_tutors.read())
     return(tmp_dict)
 
@@ -40,7 +40,7 @@ def tutor_profile_page(tutor_id):
 @app.route('/sent',  methods=['POST'])
 def search_result_page():
     if request.form.get('request_client_name'):
-        with open('request.json', 'r', encoding='utf-8') as request_file:
+        with open('store/request.json', 'r', encoding='utf-8') as request_file:
             tmp_dict = json.loads(request_file.read())
         count_request = str(len(tmp_dict)+1)
         tmp_dict[count_request] = {'goal': request.form.get('request_goal'),
@@ -48,11 +48,11 @@ def search_result_page():
                         'client_name': request.form.get('request_client_name'),
                         'client_tel': request.form.get('request_client_tel')
                         }
-        with open('request.json', 'w', encoding='utf-8') as request_file:
+        with open('store/request.json', 'w', encoding='utf-8') as request_file:
             json.dump(tmp_dict, request_file, ensure_ascii=False, indent=4)
         return render_template('sent.html', request_data=tmp_dict[count_request])
     elif request.form.get('booking_client_name'):
-        with open('booking.json', 'r', encoding='utf-8') as booking_file:
+        with open('store/booking.json', 'r', encoding='utf-8') as booking_file:
             tmp_dict = json.loads(booking_file.read())
         count_booking = str(len(tmp_dict)+1)
         tmp_dict[count_booking] = {'tutor_id': request.form.get('booking_tutor_id'),
@@ -62,11 +62,11 @@ def search_result_page():
                         'client_name': request.form.get('booking_client_name'),
                         'client_tel': request.form.get('booking_client_tel')
                         }
-        with open('booking.json', 'w', encoding='utf-8') as booking_file:
+        with open('store/booking.json', 'w', encoding='utf-8') as booking_file:
             json.dump(tmp_dict, booking_file, ensure_ascii=False, indent=4)
         return render_template('sent.html', booking_data=tmp_dict[count_booking])
     elif request.form.get('msg_client_name'):
-        with open('message.json', 'r', encoding='utf-8') as message_file:
+        with open('store/message.json', 'r', encoding='utf-8') as message_file:
             tmp_dict = json.loads(message_file.read())
         count_message = str(len(tmp_dict)+1)
         tmp_dict[count_message] = {'tutor_id': request.form.get('tutor_id'),
@@ -75,7 +75,7 @@ def search_result_page():
                         'client_tel': request.form.get('msg_client_tel'),
                         'msg_text': request.form.get('msg_text')
                         }
-        with open('message.json', 'w', encoding='utf-8') as message_file:
+        with open('store/message.json', 'w', encoding='utf-8') as message_file:
             json.dump(tmp_dict, message_file, ensure_ascii=False, indent=4)
         return render_template('sent.html', tutor_name=tmp_dict[count_message]['tutor_name'], client_name=tmp_dict[count_message]['client_name'])
     else:
